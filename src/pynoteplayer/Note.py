@@ -1,0 +1,137 @@
+
+
+class Note:
+    freq = {
+        "C0": round(16.35),
+        "Cs0": round(17.32),
+        "D0": round(18.35),
+        "Ds0": round(19.45),
+        "E0": round(20.60),
+        "F0": round(21.83),
+        "Fs0": round(23.12),
+        "G0": round(24.50),
+        "Gs0": round(25.96),
+        "A0": round(27.50),
+        "As0": round(29.14),
+        "B0": round(30.87),
+        "C1": round(32.70),
+        "Cs1": round(34.65),
+        "D1": round(36.71),
+        "Ds1": round(38.89),
+        "E1": round(41.20),
+        "F1": round(43.65),
+        "Fs1": round(46.25),
+        "G1": round(49.00),
+        "Gs1": round(51.91),
+        "A1": round(55.00),
+        "As1": round(58.27),
+        "B1": round(61.74),
+        "C2": round(65.41),
+        "Cs2": round(69.30),
+        "D2": round(73.42),
+        "Ds2": round(77.78),
+        "E2": round(82.41),
+        "F2": round(87.31),
+        "Fs2": round(92.50),
+        "G2": round(98.00),
+        "Gs2": round(103.83),
+        "A2": round(110.00),
+        "As2": round(116.54),
+        "B2": round(123.47),
+        "C3": round(130.81),
+        "Cs3": round(138.59),
+        "D3": round(146.83),
+        "Ds3": round(155.56),
+        "E3": round(164.81),
+        "F3": round(174.61),
+        "Fs3": round(185.00),
+        "G3": round(196.00),
+        "Gs3": round(207.65),
+        "A3": round(220.00),
+        "As3": round(233.08),
+        "B3": round(246.94),
+        "C4": round(261.63),
+        "Cs4": round(277.18),
+        "D4": round(293.66),
+        "Ds4": round(311.13),
+        "E4": round(329.63),
+        "F4": round(349.23),
+        "Fs4": round(369.99),
+        "G4": round(392.00),
+        "Gs4": round(415.30),
+        "A4": round(440.00),
+        "As4": round(466.16),
+        "B4": round(493.88),
+        "C5": round(523.25),
+        "Cs5": round(554.37),
+        "D5": round(587.33),
+        "Ds5": round(622.25),
+        "E5": round(659.25),
+        "F5": round(698.46),
+        "Fs5": round(739.99),
+        "G5": round(783.99),
+        "Gs5": round(830.61),
+        "A5": round(880.00),
+        "As5": round(932.33),
+        "B5": round(987.77),
+        "C6": round(1046.50),
+        "Cs6": round(1108.73),
+        "D6": round(1174.66),
+        "Ds6": round(1244.51),
+        "E6": round(1318.51),
+        "F6": round(1396.91),
+        "Fs6": round(1479.98),
+        "G6": round(1567.98),
+        "Gs6": round(1661.22),
+        "A6": round(1760.00),
+        "As6": round(1864.66),
+        "B6": round(1975.53),
+        "C7": round(2093.00),
+        "Cs7": round(2217.46),
+        "D7": round(2349.32),
+        "Ds7": round(2489.02),
+        "E7": round(2637.02),
+        "F7": round(2793.83),
+        "Fs7": round(2959.96),
+        "G7": round(3135.96),
+        "Gs7": round(3322.44),
+        "A7": round(3520.00),
+        "As7": round(3729.31),
+        "B7": round(3951.07),
+        "C8": round(4186.01),
+        "Cs8": round(4434.92),
+        "D8": round(4698.63),
+        "Ds8": round(4978.03),
+        "E8": round(5274.04),
+        "F8": round(5587.65),
+        "Fs8": round(5919.91),
+        "G8": round(6271.93),
+        "Gs8": round(6644.88),
+        "A8": round(7040.00),
+        "As8": round(7458.62),
+        "B8": round(7902.13),
+        # SILENT
+        "REST": 0
+    }
+
+    duration_map = {
+        1: 1.5,
+        2: 1.75,
+        3: 1.875,
+        4: 1.9375
+    }
+
+    supported_notes = [1, 2, 4, 8, 16, 32, 64]
+
+    def __init__(self, note, note_type: int, dot=0) -> None:
+        """Note class does not support Breve type of the note atm"""
+
+        if type(note_type) is not int:
+            raise TypeError("Note type must be integer")
+
+        if note_type not in Note.supported_notes:
+            raise ValueError(
+                f"Note types must be one of {Note().supported_notes}")
+
+        self.freq = Note.freq.get(note, 0)
+        self.dur_coef = 1/(note_type/Note.duration_map.get(dot, 1.0))
