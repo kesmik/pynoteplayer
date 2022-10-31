@@ -9,7 +9,7 @@ class Melody:
         if player == None:
             self.note_player = MelodyPlayer()
         else:
-            self.note_player = player()
+            self.note_player = player
 
     def play(self):
         for note in self.notes:
